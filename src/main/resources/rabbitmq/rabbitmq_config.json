@@ -1,0 +1,196 @@
+{
+  "rabbit_version": "3.8.14",
+  "rabbitmq_version": "3.8.14",
+  "product_name": "RabbitMQ",
+  "product_version": "3.8.14",
+  "users": [
+    {
+      "name": "rabbit",
+      "password_hash": "aVKGbzNifP+n/ZlVe7TqeHuA4f88+9xjG5GTVsmLDHtx2u9+",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator",
+      "limits": {}
+    },
+    {
+      "name": "camunda",
+      "password_hash": "m/3i2W4wb360P1ORy3ZVffeuBek+DJ7zjnWxBuaHP188oiIU",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator",
+      "limits": {}
+    },
+    {
+      "name": "admin",
+      "password_hash": "CqL8erNqF90JqOntJaQbzEkMV2DD1KMnfX5g+nhvKx9+0/3e",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator",
+      "limits": {}
+    },
+    {
+      "name": "guest",
+      "password_hash": "gxYjxzhryW4wzkFCKPy1lNy+mYnn0Q1H11JsPtHHncCY2ryX",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator",
+      "limits": {}
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "admin",
+      "vhost": "/",
+      "configure": ".*",
+      "write": " .*",
+      "read": " .*"
+    },
+    {
+      "user": "rabbit",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "guest",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "camunda",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "topic_permissions": [],
+  "parameters": [],
+  "global_parameters": [
+    {
+      "name": "cluster_name",
+      "value": "rabbit@localhost"
+    },
+    {
+      "name": "internal_cluster_id",
+      "value": "rabbitmq-cluster-id-AWFGQwlpzdWae8JxPBXzWA"
+    }
+  ],
+  "policies": [],
+  "queues": [
+    {
+      "name": "QACT.Outgoing",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "EACT.Outgoing.Dead",
+        "x-queue-type": "classic"
+      }
+    },
+    {
+      "name": "QACT.Outgoing.Dead",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "classic"
+      }
+    },
+    {
+      "name": "QACT.Incoming",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "EACT.Incoming.Dead",
+        "x-queue-type": "classic"
+      }
+    },
+    {
+      "name": "QACT.Incoming.Dead",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "classic"
+      }
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "EACT.Incoming.Dead",
+      "vhost": "/",
+      "type": "fanout",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "EACT.Incoming.Work",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "EACT.Outgoing.Dead",
+      "vhost": "/",
+      "type": "fanout",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "EACT.Outgoing.Work",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "EACT.Incoming.Dead",
+      "vhost": "/",
+      "destination": "QACT.Incoming.Dead",
+      "destination_type": "queue",
+      "routing_key": "",
+      "arguments": {}
+    },
+    {
+      "source": "EACT.Incoming.Work",
+      "vhost": "/",
+      "destination": "QACT.Incoming",
+      "destination_type": "queue",
+      "routing_key": "Incoming",
+      "arguments": {}
+    },
+    {
+      "source": "EACT.Outgoing.Dead",
+      "vhost": "/",
+      "destination": "QACT.Outgoing.Dead",
+      "destination_type": "queue",
+      "routing_key": "",
+      "arguments": {}
+    },
+    {
+      "source": "EACT.Outgoing.Work",
+      "vhost": "/",
+      "destination": "QACT.Outgoing",
+      "destination_type": "queue",
+      "routing_key": "",
+      "arguments": {}
+    }
+  ]
+}

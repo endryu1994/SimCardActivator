@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsd:schema elementFormDefault="qualified" version="1.0"
+            targetNamespace="http://ws.example.com/"
+            xmlns:tns="http://ws.example.com/"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:element name="Request" type="tns:Request"/>
+    <xsd:element name="Response" type="tns:Response"/>
+
+    <xsd:complexType name="Request">
+        <xsd:sequence>
+            <xsd:element name="RequestHeader" type="tns:RequestHeader"/>
+            <xsd:element name="RequestParameters">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Parameter" type="tns:Parameter" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Response">
+        <xsd:sequence>
+            <xsd:element name="ResponseHeader" type="tns:ResponseHeader"/>
+            <xsd:element name="ResponseParameters">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Parameter" type="tns:Parameter" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RequestHeader">
+        <xsd:all>
+            <xsd:element name="Type" type="tns:NonEmptyString"/>
+            <xsd:element name="Order" type="tns:NonEmptyString"/>
+            <xsd:element name="Priority" type="tns:OneToTen"/>
+            <xsd:element name="User" type="tns:NonEmptyString"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="ResponseHeader">
+        <xsd:all>
+            <xsd:element name="Type" type="tns:NonEmptyString"/>
+            <xsd:element name="Order" type="tns:NonEmptyString"/>
+            <xsd:element name="Priority" type="tns:OneToTen"/>
+            <xsd:element name="User" type="tns:NonEmptyString"/>
+            <xsd:element name="Status" type="tns:OneToTen"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="Parameter">
+        <xsd:attribute name="name" type="xsd:string" use="required"/>
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:simpleType name="NonEmptyString">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="OneToTen">
+        <xsd:restriction base="xsd:int">
+            <xsd:minInclusive value="1"/>
+            <xsd:maxInclusive value="10"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>
