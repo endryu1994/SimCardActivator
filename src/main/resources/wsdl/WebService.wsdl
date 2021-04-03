@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wsdl:definitions targetNamespace="http://ws.example.com/" name="WebService"
+                  xmlns:tns="http://ws.example.com/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://ws.example.com/" schemaLocation="WebService.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="Request">
+        <wsdl:part name="Request" element="tns:Request"/>
+    </wsdl:message>
+    <wsdl:message name="Response">
+        <wsdl:part name="Response" element="tns:Response"/>
+    </wsdl:message>
+
+    <wsdl:portType name="WebService">
+        <wsdl:operation name="Request">
+            <wsdl:input name="Request" message="tns:Request"/>
+            <wsdl:output name="Response" message="tns:Response"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="WebServicesPortBinding" type="tns:WebService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Request">
+            <soap:operation soapAction="urn:request"/>
+            <wsdl:input name="Request">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="Response">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="WebService">
+        <wsdl:port name="WebService" binding="tns:WebServicesPortBinding">
+            <soap:address location="http://localhost:8081/services/WebService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
