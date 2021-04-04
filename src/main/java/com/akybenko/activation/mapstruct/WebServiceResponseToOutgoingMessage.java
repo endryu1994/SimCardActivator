@@ -6,7 +6,7 @@ import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import com.akybenko.activation.model.OutgoingMessage;
-import com.akybenko.activation.model.ws.Response;
+import com.akybenko.activation.model.ws.server.Response;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface WebServiceResponseToOutgoingMessage {

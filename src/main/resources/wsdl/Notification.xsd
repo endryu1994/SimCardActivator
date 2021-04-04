@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:tns="http://ws.notification.example.com/"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://ws.notification.example.com/"
+            elementFormDefault="qualified">
+
+    <xsd:element name="Notification" type="tns:Notification"/>
+    <xsd:element name="NotificationResponse" type="tns:NotificationResponse"/>
+    <xsd:element name="Parameter" type="tns:Parameter"/>
+
+    <xsd:complexType name="Notification">
+        <xsd:sequence>
+            <xsd:element ref="tns:Parameter"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="NotificationResponse">
+        <xsd:sequence>
+            <xsd:element name="Value" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Parameter">
+        <xsd:sequence>
+            <xsd:element name="Attribute" type="tns:Attribute" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="data" type="xsd:string"/>
+        <xsd:attribute name="operation" use="required" type="tns:Type"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="Attribute">
+        <xsd:sequence>
+            <xsd:element name="Value" type="xsd:string"/>
+        </xsd:sequence>
+        <xsd:attribute name="name" use="required" type="xsd:string"/>
+    </xsd:complexType>
+
+    <xsd:simpleType name="Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="add"/>
+            <xsd:enumeration value="update"/>
+            <xsd:enumeration value="delete"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

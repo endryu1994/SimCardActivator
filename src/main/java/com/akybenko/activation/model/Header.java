@@ -16,6 +16,7 @@ public class Header implements Serializable {
     private String step;
     private Integer priority;
     private String order;
+    private String imsi;
 
     public Header(Map<String, String> map) {
         if (nonNull(map)) {
@@ -24,6 +25,7 @@ public class Header implements Serializable {
             step = map.get(STEP);
             priority = Integer.valueOf(map.get(PRIORITY));
             order = map.get(ORDER);
+            imsi = map.get(IMSI);
         }
     }
 }

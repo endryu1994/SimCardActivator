@@ -1,5 +1,4 @@
-
-package com.akybenko.activation.model.ws;
+package com.akybenko.activation.model.ws.server;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -9,12 +8,12 @@ import javax.xml.bind.annotation.XmlType;
 import lombok.Data;
 
 /**
- * <p>Java class for RequestHeader complex type.
+ * <p>Java class for ResponseHeader complex type.
  *
  * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
- * &lt;complexType name="RequestHeader"&gt;
+ * &lt;complexType name="ResponseHeader"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;all&gt;
@@ -22,6 +21,7 @@ import lombok.Data;
  *         &lt;element name="Order" type="{http://ws.example.com/}NonEmptyString"/&gt;
  *         &lt;element name="Priority" type="{http://ws.example.com/}OneToTen"/&gt;
  *         &lt;element name="User" type="{http://ws.example.com/}NonEmptyString"/&gt;
+ *         &lt;element name="Status" type="{http://ws.example.com/}OneToTen"/&gt;
  *       &lt;/all&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -29,10 +29,10 @@ import lombok.Data;
  * </pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "RequestHeader", propOrder = {
+@XmlType(name = "ResponseHeader", propOrder = {
 })
 @Data
-public class RequestHeader {
+public class ResponseHeader {
 
     @XmlElement(name = "Type", namespace = "http://ws.example.com/", required = true)
     private String type;
@@ -42,4 +42,6 @@ public class RequestHeader {
     private Integer priority;
     @XmlElement(name = "User", namespace = "http://ws.example.com/", required = true)
     private String user;
+    @XmlElement(name = "Status", namespace = "http://ws.example.com/", required = true)
+    private Integer status;
 }

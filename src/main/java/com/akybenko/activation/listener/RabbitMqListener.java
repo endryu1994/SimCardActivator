@@ -41,7 +41,7 @@ public class RabbitMqListener {
             SimActivateRequest request = new SimActivateRequest(map);
             log.debug("Request: {}", request);
             runtimeService.startProcessInstanceByKey(
-                    CAMUNDA_PROCESS_NAME, request.getHeader().getOrder(), getVariables(request));
+                    CAMUNDA_PROCESS_NAME, request.getHeader().getImsi(), getVariables(request));
             channel.basicAck(tag, false);
         } catch (Exception e) {
             log.error("Unexpected exception occurred: {}", e.getMessage());
@@ -61,6 +61,7 @@ public class RabbitMqListener {
                 .create();
         return Variables
                 .putValue(STEP, request.getHeader().getStep())
+                .putValue(IMSI, request.getHeader().getImsi())
                 .putValueTyped(REQUEST, requestValue);
     }
 }

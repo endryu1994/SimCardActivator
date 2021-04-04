@@ -27,11 +27,12 @@ public final class Constants {
     // Step
     public static final String SIM_PRE_ACTIVATE = "simPreActivate";
     public static final String SPS_CREATE_SIM = "spsCreateSim";
+    public static final String NOTIFICATION = "notification";
 
     // Camunda
     public static final String CAMUNDA_PROCESS_NAME = "SimCardActivationProcess";
 
     // Variables
     public static final String REQUEST = "request";
-    public static final String STATUS = "status";
+    public static final String ERROR = "error";
 }
