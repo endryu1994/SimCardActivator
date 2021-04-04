@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<wsdl:definitions targetNamespace="http://ws.notification.example.com/" name="Notification"
+                  xmlns:tns="http://ws.notification.example.com/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://ws.notification.example.com/" schemaLocation="Notification.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="Notification">
+        <wsdl:part name="Notification" element="tns:Notification"/>
+    </wsdl:message>
+    <wsdl:message name="NotificationResponse">
+        <wsdl:part name="NotificationResponse" element="tns:NotificationResponse"/>
+    </wsdl:message>
+
+    <wsdl:portType name="NotificationPortType">
+        <wsdl:operation name="Notification">
+            <wsdl:input name="Notification" message="tns:Notification"/>
+            <wsdl:output name="NotificationResponse" message="tns:NotificationResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="NotificationPortBinding" type="tns:NotificationPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Notification">
+            <soap:operation soapAction="urn:notification"/>
+            <wsdl:input name="Notification">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="NotificationResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="Notification">
+        <wsdl:port name="NotificationResponse" binding="tns:NotificationPortBinding">
+            <soap:address location="http://localhost:8080/services/Notification"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

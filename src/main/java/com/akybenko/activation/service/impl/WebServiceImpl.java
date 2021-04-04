@@ -9,7 +9,10 @@ import org.springframework.ws.soap.client.core.SoapActionCallback;
 
 import com.akybenko.activation.ApplicationProperties;
 import com.akybenko.activation.model.SimActivateRequest;
-import com.akybenko.activation.model.ws.*;
+import com.akybenko.activation.model.ws.server.Parameter;
+import com.akybenko.activation.model.ws.server.Request;
+import com.akybenko.activation.model.ws.server.RequestHeader;
+import com.akybenko.activation.model.ws.server.Response;
 import com.akybenko.activation.service.WebService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

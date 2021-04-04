@@ -1,5 +1,4 @@
-
-package com.akybenko.activation.model.ws;
+package com.akybenko.activation.model.ws.server;
 
 import static java.util.Objects.isNull;
 

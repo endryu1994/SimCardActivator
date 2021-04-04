@@ -47,4 +47,16 @@ public class ApplicationProperties {
 
     @Value("${activator.ws.password}")
     private String wsPassword;
+
+    @Value("${activator.thread.core-pool-size}")
+    private Integer corePoolSize;
+
+    @Value("${activator.thread.max-pool-size}")
+    private Integer maxPoolSize;
+
+    @Value("${activator.thread.queue-capacity}")
+    private Integer queueCapacity;
+
+    @Value("${activator.thread.prefix}")
+    private String threadPrefixName;
 }

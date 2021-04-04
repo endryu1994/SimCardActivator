@@ -9,9 +9,10 @@ import org.springframework.stereotype.Component;
 
 import com.akybenko.activation.model.OutgoingMessage;
 import com.akybenko.activation.model.SimActivateRequest;
-import com.akybenko.activation.model.ws.Response;
+import com.akybenko.activation.model.ws.server.Response;
 import com.akybenko.activation.service.RabbitMqSenderService;
 import com.akybenko.activation.service.WebService;
+import com.akybenko.activation.service.WebServiceResponseStatusAnalyzer;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,15 +23,24 @@ public class SimPreActivateTask implements JavaDelegate {
 
     private final WebService webService;
     private final RabbitMqSenderService rabbitMqSenderService;
+    private final WebServiceResponseStatusAnalyzer analyzer;
 
     @Override
     public void execute(DelegateExecution execution) {
         SimActivateRequest request = (SimActivateRequest) execution.getVariable(REQUEST);
         Response response = webService.getSimPreActivateResponse(request);
         log.debug("[{}] Response: {}", execution.getProcessInstanceId(), response);
+        convertAndSend(response);
+        execution.setVariable(STEP, SPS_CREATE_SIM);
+        execution.setVariable(ERROR, isError(response));
+    }
+
+    private void convertAndSend(Response response) {
         OutgoingMessage outgoingMessage = INSTANCE.getOutgoingMessage(response, SIM_PRE_ACTIVATE);
         rabbitMqSenderService.convertAndSend(outgoingMessage);
-        execution.setVariable(STEP, SIM_PRE_ACTIVATE);
-        execution.setVariable(STATUS, outgoingMessage.getStatus());
+    }
+
+    private boolean isError(Response response) {
+        return analyzer.analyze(response.getResponseHeader().getStatus());
     }
 }

@@ -5,9 +5,9 @@ import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import com.akybenko.activation.model.Header;
-import com.akybenko.activation.model.ws.Parameter;
-import com.akybenko.activation.model.ws.Request;
-import com.akybenko.activation.model.ws.RequestHeader;
+import com.akybenko.activation.model.ws.server.Parameter;
+import com.akybenko.activation.model.ws.server.Request;
+import com.akybenko.activation.model.ws.server.RequestHeader;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface SimActivateRequestToWebServiceRequest {
