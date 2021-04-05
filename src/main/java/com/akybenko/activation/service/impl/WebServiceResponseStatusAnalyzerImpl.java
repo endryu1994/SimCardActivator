@@ -1,5 +1,7 @@
 package com.akybenko.activation.service.impl;
 
+import static com.akybenko.activation.Constants.STATUS_CODE_WS_OK;
+
 import org.springframework.stereotype.Service;
 
 import com.akybenko.activation.service.WebServiceResponseStatusAnalyzer;
@@ -8,7 +10,7 @@ import com.akybenko.activation.service.WebServiceResponseStatusAnalyzer;
 public class WebServiceResponseStatusAnalyzerImpl implements WebServiceResponseStatusAnalyzer {
 
     @Override
-    public boolean analyze(Integer status) {
-        return status != 0 && status != 9;
+    public boolean isErrorWebServiceStatus(Integer status) {
+        return !STATUS_CODE_WS_OK.equals(status);
     }
 }

@@ -37,8 +37,8 @@ public class Parameter {
 
     @XmlElement(name = "Attribute", namespace = "http://ws.notification.example.com/")
     private List<Attribute> attribute;
-    @XmlAttribute(name = "imsi", required = true)
-    private String imsi;
+    @XmlAttribute(name = "order", required = true)
+    private String order;
     @XmlAttribute(name = "operation", required = true)
     private Type operation;
 

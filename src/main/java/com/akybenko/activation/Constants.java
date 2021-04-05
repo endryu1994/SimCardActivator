@@ -35,4 +35,6 @@ public final class Constants {
     // Variables
     public static final String REQUEST = "request";
     public static final String ERROR = "error";
+
+    public static final Integer STATUS_CODE_WS_OK = 9;
 }
