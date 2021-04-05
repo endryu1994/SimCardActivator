@@ -30,7 +30,7 @@ public final class Constants {
     public static final String NOTIFICATION = "notification";
 
     // Camunda
-    public static final String CAMUNDA_PROCESS_NAME = "SimCardActivationProcess";
+    public static final String CAMUNDA_PROCESS_NAME = "SimCardActivator";
 
     // Variables
     public static final String REQUEST = "request";

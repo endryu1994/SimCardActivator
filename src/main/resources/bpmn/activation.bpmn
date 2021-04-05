@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1pzpk3d" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
-    <bpmn:process id="SimCardActivationProcess" isExecutable="true">
+    <bpmn:process id="SimCardActivator" isExecutable="true">
         <bpmn:startEvent id="StartEvent_GetOrder" name="Get order">
             <bpmn:outgoing>Flow_1mikpvd</bpmn:outgoing>
         </bpmn:startEvent>
@@ -56,7 +56,7 @@
         <bpmn:sequenceFlow id="Flow_0v469fz" sourceRef="Activity_14vw53z" targetRef="EndEvent_SimCardActivated" />
     </bpmn:process>
     <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="SimCardActivationProcess">
+        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="SimCardActivator">
             <bpmndi:BPMNEdge id="Flow_0dkccrx_di" bpmnElement="Flow_0dkccrx">
                 <di:waypoint x="350" y="192" />
                 <di:waypoint x="350" y="270" />
