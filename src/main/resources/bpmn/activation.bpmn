@@ -29,7 +29,7 @@
         <bpmn:endEvent id="EndEvent_SimCardActivated" name="SIM-card is activated">
             <bpmn:incoming>Flow_0v469fz</bpmn:incoming>
         </bpmn:endEvent>
-        <bpmn:sequenceFlow id="Flow_0uvr276" name="notification" sourceRef="Gateway_CheckStep" targetRef="Activity_14vw53z">
+        <bpmn:sequenceFlow id="Flow_0uvr276" name="notification" sourceRef="Gateway_CheckStep" targetRef="ReceiveTask_WaitForNotification">
             <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{step == 'notification'}</bpmn:conditionExpression>
         </bpmn:sequenceFlow>
         <bpmn:exclusiveGateway id="Gateway_0cdm22m">
@@ -49,14 +49,56 @@
         <bpmn:sequenceFlow id="Flow_1kmgevh" name="False&#10;" sourceRef="Gateway_0cdm22m" targetRef="Gateway_CheckStep">
             <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{error == false}</bpmn:conditionExpression>
         </bpmn:sequenceFlow>
-        <bpmn:receiveTask id="Activity_14vw53z" name="Notification">
+        <bpmn:receiveTask id="ReceiveTask_WaitForNotification" name="Wait for notification" messageRef="Message_1ermzjz">
             <bpmn:incoming>Flow_0uvr276</bpmn:incoming>
             <bpmn:outgoing>Flow_0v469fz</bpmn:outgoing>
         </bpmn:receiveTask>
-        <bpmn:sequenceFlow id="Flow_0v469fz" sourceRef="Activity_14vw53z" targetRef="EndEvent_SimCardActivated" />
+        <bpmn:sequenceFlow id="Flow_0v469fz" sourceRef="ReceiveTask_WaitForNotification" targetRef="EndEvent_SimCardActivated" />
     </bpmn:process>
+    <bpmn:message id="Message_1ermzjz" name="notification" />
     <bpmndi:BPMNDiagram id="BPMNDiagram_1">
         <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="SimCardActivator">
+            <bpmndi:BPMNEdge id="Flow_0v469fz_di" bpmnElement="Flow_0v469fz">
+                <di:waypoint x="570" y="370" />
+                <di:waypoint x="782" y="370" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1kmgevh_di" bpmnElement="Flow_1kmgevh">
+                <di:waypoint x="690" y="195" />
+                <di:waypoint x="690" y="80" />
+                <di:waypoint x="270" y="80" />
+                <di:waypoint x="270" y="167" />
+                <di:waypoint x="325" y="167" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="467" y="62" width="27" height="27" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_02on242_di" bpmnElement="Flow_02on242">
+                <di:waypoint x="715" y="220" />
+                <di:waypoint x="782" y="220" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="738" y="202" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0a402m3_di" bpmnElement="Flow_0a402m3">
+                <di:waypoint x="570" y="270" />
+                <di:waypoint x="620" y="270" />
+                <di:waypoint x="620" y="220" />
+                <di:waypoint x="665" y="220" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0mjbiez_di" bpmnElement="Flow_0mjbiez">
+                <di:waypoint x="570" y="167" />
+                <di:waypoint x="620" y="167" />
+                <di:waypoint x="620" y="220" />
+                <di:waypoint x="665" y="220" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0uvr276_di" bpmnElement="Flow_0uvr276">
+                <di:waypoint x="350" y="192" />
+                <di:waypoint x="350" y="370" />
+                <di:waypoint x="470" y="370" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="391" y="353" width="53" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge id="Flow_0dkccrx_di" bpmnElement="Flow_0dkccrx">
                 <di:waypoint x="350" y="192" />
                 <di:waypoint x="350" y="270" />
@@ -76,57 +118,16 @@
                 <di:waypoint x="198" y="167" />
                 <di:waypoint x="325" y="167" />
             </bpmndi:BPMNEdge>
-            <bpmndi:BPMNEdge id="Flow_0uvr276_di" bpmnElement="Flow_0uvr276">
-                <di:waypoint x="350" y="192" />
-                <di:waypoint x="350" y="370" />
-                <di:waypoint x="470" y="370" />
-                <bpmndi:BPMNLabel>
-                    <dc:Bounds x="391" y="353" width="53" height="14" />
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNEdge>
-            <bpmndi:BPMNEdge id="Flow_0mjbiez_di" bpmnElement="Flow_0mjbiez">
-                <di:waypoint x="570" y="167" />
-                <di:waypoint x="620" y="167" />
-                <di:waypoint x="620" y="220" />
-                <di:waypoint x="665" y="220" />
-            </bpmndi:BPMNEdge>
-            <bpmndi:BPMNEdge id="Flow_0a402m3_di" bpmnElement="Flow_0a402m3">
-                <di:waypoint x="570" y="270" />
-                <di:waypoint x="620" y="270" />
-                <di:waypoint x="620" y="220" />
-                <di:waypoint x="665" y="220" />
-            </bpmndi:BPMNEdge>
-            <bpmndi:BPMNEdge id="Flow_02on242_di" bpmnElement="Flow_02on242">
-                <di:waypoint x="715" y="220" />
-                <di:waypoint x="782" y="220" />
-                <bpmndi:BPMNLabel>
-                    <dc:Bounds x="738" y="202" width="22" height="14" />
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNEdge>
-            <bpmndi:BPMNEdge id="Flow_1kmgevh_di" bpmnElement="Flow_1kmgevh">
-                <di:waypoint x="690" y="195" />
-                <di:waypoint x="690" y="80" />
-                <di:waypoint x="270" y="80" />
-                <di:waypoint x="270" y="167" />
-                <di:waypoint x="325" y="167" />
-                <bpmndi:BPMNLabel>
-                    <dc:Bounds x="467" y="62" width="27" height="27" />
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNEdge>
-            <bpmndi:BPMNEdge id="Flow_0v469fz_di" bpmnElement="Flow_0v469fz">
-                <di:waypoint x="570" y="370" />
-                <di:waypoint x="782" y="370" />
-            </bpmndi:BPMNEdge>
-            <bpmndi:BPMNShape id="Gateway_0gc7ru2_di" bpmnElement="Gateway_CheckStep" isMarkerVisible="true">
-                <dc:Bounds x="325" y="142" width="50" height="50" />
-                <bpmndi:BPMNLabel>
-                    <dc:Bounds x="322" y="123" width="56" height="14" />
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNShape>
             <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_GetOrder">
                 <dc:Bounds x="162" y="149" width="36" height="36" />
                 <bpmndi:BPMNLabel>
                     <dc:Bounds x="157" y="192" width="48" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Gateway_0gc7ru2_di" bpmnElement="Gateway_CheckStep" isMarkerVisible="true">
+                <dc:Bounds x="325" y="142" width="50" height="50" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="322" y="123" width="56" height="14" />
                 </bpmndi:BPMNLabel>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape id="Activity_1wlpgx0_di" bpmnElement="ServiceTask_SimPreActivate">
@@ -135,11 +136,14 @@
             <bpmndi:BPMNShape id="Activity_1w90sdd_di" bpmnElement="ServiceTask_SpsCreateSim">
                 <dc:Bounds x="470" y="230" width="100" height="80" />
             </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_14417dy_di" bpmnElement="EndEvent_SimCardActivated">
+                <dc:Bounds x="782" y="352" width="36" height="36" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="772" y="395" width="57" height="27" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
             <bpmndi:BPMNShape id="Gateway_0cdm22m_di" bpmnElement="Gateway_0cdm22m" isMarkerVisible="true">
                 <dc:Bounds x="665" y="195" width="50" height="50" />
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape id="Activity_0rbe8xo_di" bpmnElement="Activity_14vw53z">
-                <dc:Bounds x="470" y="330" width="100" height="80" />
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape id="Event_0vp2a6v_di" bpmnElement="EndEvent_SimCardIsNotActivated">
                 <dc:Bounds x="782" y="202" width="36" height="36" />
@@ -147,11 +151,8 @@
                     <dc:Bounds x="764" y="245" width="75" height="27" />
                 </bpmndi:BPMNLabel>
             </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape id="Event_14417dy_di" bpmnElement="EndEvent_SimCardActivated">
-                <dc:Bounds x="782" y="352" width="36" height="36" />
-                <bpmndi:BPMNLabel>
-                    <dc:Bounds x="772" y="395" width="57" height="27" />
-                </bpmndi:BPMNLabel>
+            <bpmndi:BPMNShape id="Activity_0rbe8xo_di" bpmnElement="ReceiveTask_WaitForNotification">
+                <dc:Bounds x="470" y="330" width="100" height="80" />
             </bpmndi:BPMNShape>
         </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>
