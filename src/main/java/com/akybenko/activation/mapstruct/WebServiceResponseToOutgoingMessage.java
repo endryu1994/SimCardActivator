@@ -14,7 +14,8 @@ public interface WebServiceResponseToOutgoingMessage {
     WebServiceResponseToOutgoingMessage INSTANCE = Mappers.getMapper(WebServiceResponseToOutgoingMessage.class);
 
     @Mapping(target = "order", source = "response.responseHeader.order")
-    @Mapping(target = "user", source = "response.responseHeader.user")
     @Mapping(target = "status", source = "response.responseHeader.status")
-    OutgoingMessage getOutgoingMessage(Response response, String step);
+    OutgoingMessage getOutgoingMessage(String step, Response response);
+
+    OutgoingMessage getOutgoingMessage(String step, String order, Integer status);
 }
