@@ -24,7 +24,7 @@
         <xsd:sequence>
             <xsd:element name="Attribute" type="tns:Attribute" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
-        <xsd:attribute name="data" type="xsd:string"/>
+        <xsd:attribute name="imsi" type="xsd:string"/>
         <xsd:attribute name="operation" use="required" type="tns:Type"/>
     </xsd:complexType>
 
