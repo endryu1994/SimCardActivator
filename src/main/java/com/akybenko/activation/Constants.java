@@ -31,7 +31,6 @@ public final class Constants {
 
     // Camunda
     public static final String CAMUNDA_PROCESS_NAME = "SimCardActivator";
-    public static final String PROCESS_BUSINESS_KEY_FIELD_NAME = "processBusinessKey";
 
     // Variables
     public static final String REQUEST = "request";
