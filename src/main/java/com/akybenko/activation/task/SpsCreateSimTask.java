@@ -4,6 +4,7 @@ import static com.akybenko.activation.Constants.*;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 import com.akybenko.activation.model.SimActivateRequest;
@@ -25,12 +26,16 @@ public class SpsCreateSimTask implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) {
-        SimActivateRequest request = (SimActivateRequest) execution.getVariable(REQUEST);
-        Response response = webService.getSpsCreateSimResponse(request);
-        log.debug("[{}] Response: {}", execution.getProcessInstanceId(), response);
-        rabbitMqSenderService.convertAndSend(SPS_CREATE_SIM, response);
-        boolean isError = analyzer.isErrorWebServiceStatus(response.getResponseHeader().getStatus());
-        execution.setVariable(STEP, NOTIFICATION);
-        execution.setVariable(ERROR, isError);
+        MDC.put(PROCESS_BUSINESS_KEY_FIELD_NAME, execution.getProcessBusinessKey());
+        try {
+            SimActivateRequest request = (SimActivateRequest) execution.getVariable(REQUEST);
+            Response response = webService.getSpsCreateSimResponse(request);
+            rabbitMqSenderService.convertAndSend(SPS_CREATE_SIM, response);
+            boolean isError = analyzer.isErrorWebServiceStatus(response.getResponseHeader().getStatus());
+            execution.setVariable(STEP, NOTIFICATION);
+            execution.setVariable(ERROR, isError);
+        } finally {
+            MDC.remove(PROCESS_BUSINESS_KEY_FIELD_NAME);
+        }
     }
 }
