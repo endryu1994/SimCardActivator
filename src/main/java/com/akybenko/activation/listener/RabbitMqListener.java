@@ -1,6 +1,8 @@
 package com.akybenko.activation.listener;
 
 import static com.akybenko.activation.Constants.*;
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static org.springframework.amqp.support.AmqpHeaders.CHANNEL;
 import static org.springframework.amqp.support.AmqpHeaders.DELIVERY_TAG;
 
@@ -9,6 +11,7 @@ import java.nio.charset.Charset;
 import java.util.Map;
 
 import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.engine.variable.value.ObjectValue;
 import org.springframework.amqp.core.Message;
@@ -40,8 +43,10 @@ public class RabbitMqListener {
             Map<String, Map<String, String>> map = getData(data);
             SimActivateRequest request = new SimActivateRequest(map);
             log.debug("Request: {}", request);
-            runtimeService.startProcessInstanceByKey(
-                    CAMUNDA_PROCESS_NAME, request.getHeader().getOrder(), getVariables(request));
+            String order = request.getHeader().getOrder();
+            if (checkIfActiveProcessExists(order)) {
+                runtimeService.startProcessInstanceByKey(CAMUNDA_PROCESS_NAME, order, getVariables(request));
+            }
             channel.basicAck(tag, false);
         } catch (Exception e) {
             log.error("Unexpected exception occurred: {}", e.getMessage());
@@ -62,5 +67,17 @@ public class RabbitMqListener {
         return Variables
                 .putValue(STEP, request.getHeader().getStep())
                 .putValueTyped(REQUEST, requestValue);
+    }
+
+    private boolean checkIfActiveProcessExists(String businessKey) {
+        ProcessInstance instance = runtimeService.createProcessInstanceQuery()
+                .processInstanceBusinessKey(businessKey)
+                .active()
+                .singleResult();
+        if (nonNull(instance)) {
+            log.debug("Active process with businessKey: {} is found. ProcessId: {}",
+                    businessKey, instance.getProcessInstanceId());
+        }
+        return isNull(instance);
     }
 }
