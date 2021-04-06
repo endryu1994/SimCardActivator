@@ -4,7 +4,6 @@ import static com.akybenko.activation.Constants.*;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 import com.akybenko.activation.model.SimActivateRequest;
@@ -26,16 +25,11 @@ public class SimPreActivateTask implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) {
-        MDC.put(PROCESS_BUSINESS_KEY_FIELD_NAME, execution.getProcessBusinessKey());
-        try {
-            SimActivateRequest request = (SimActivateRequest) execution.getVariable(REQUEST);
-            Response response = webService.getSimPreActivateResponse(request);
-            rabbitMqSenderService.convertAndSend(SIM_PRE_ACTIVATE, response);
-            boolean isError = analyzer.isErrorWebServiceStatus(response.getResponseHeader().getStatus());
-            execution.setVariable(STEP, SPS_CREATE_SIM);
-            execution.setVariable(ERROR, isError);
-        } finally {
-            MDC.remove(PROCESS_BUSINESS_KEY_FIELD_NAME);
-        }
+        SimActivateRequest request = (SimActivateRequest) execution.getVariable(REQUEST);
+        Response response = webService.getSimPreActivateResponse(request);
+        rabbitMqSenderService.convertAndSend(SIM_PRE_ACTIVATE, response);
+        boolean isError = analyzer.isErrorWebServiceStatus(response.getResponseHeader().getStatus());
+        execution.setVariable(STEP, SPS_CREATE_SIM);
+        execution.setVariable(ERROR, isError);
     }
 }

@@ -19,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 public class NotificationListener {
 
     private static final String NAMESPACE = "http://ws.notification.example.com/";
-    private static final String DEFAULT_VALUE = "Received";
 
     private final NotificationService notificationService;
 
@@ -27,8 +26,9 @@ public class NotificationListener {
     @ResponsePayload
     public NotificationResponse getNotification(@RequestPayload Notification request) {
         log.debug("Input request: {}", request);
-        notificationService.execute(request);
-        NotificationResponse response = INSTANCE.getNotificationResponse(DEFAULT_VALUE);
+        String order = request.getParameter().getOrder();
+        notificationService.execute(order);
+        NotificationResponse response = INSTANCE.getNotificationResponse(order);
         log.debug("Response: {}", response);
         return response;
     }
