@@ -5,7 +5,7 @@ This example shows:
 
 ## Business process
 
-![overview](docs/overview.png)
+![overview](docs/overview.jpg)
 
 * It is triggered via SOAP.
 * Calls a SOAP service.
