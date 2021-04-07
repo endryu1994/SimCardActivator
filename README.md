@@ -5,7 +5,7 @@ This example shows:
 
 ## Business process
 
-<div style="text-align:center"><img src="/docs/overview.png"/></div>
+<img src="/docs/overview.png" alt="overview" width="80%"/>
 
 * It is triggered via SOAP.
 * Calls a SOAP service.
