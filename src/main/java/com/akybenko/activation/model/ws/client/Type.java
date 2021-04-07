@@ -34,12 +34,13 @@ public enum Type {
     UPDATE("update"),
     @XmlEnumValue("delete")
     DELETE("delete");
+
     private final String value;
 
     public static Type fromValue(String v) {
-        for (Type c : Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
+        for (Type value : values()) {
+            if (value.getValue().equals(v)) {
+                return value;
             }
         }
         throw new IllegalArgumentException(v);

@@ -12,11 +12,9 @@ import com.akybenko.activation.service.RabbitMqSenderService;
 import com.akybenko.activation.service.WebService;
 import com.akybenko.activation.service.WebServiceResponseStatusAnalyzer;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Component
 @AllArgsConstructor
-@Slf4j
 public class SimPreActivateTask implements JavaDelegate {
 
     private final WebService webService;
