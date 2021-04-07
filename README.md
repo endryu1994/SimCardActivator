@@ -35,3 +35,8 @@ Also note the [SimCardActivationApplication.java](https://github.com/endryu1994/
 > mvn clean install
 * Run application
 > java -jar target/sim-card-activation-camunda-0.0.1-SNAPSHOT.jar
+
+## Testing
+1. Publish [order](https://github.com/endryu1994/SimCardActivator/blob/Readme/src/test/resources/order/order.json) to
+ QACT.Incoming queue.
+2. Send a Notification SOAP message to the application from Notification project in SOAP UI.
