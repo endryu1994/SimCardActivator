@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="100ca8f8-8374-4d7d-87fd-ff89c72493c3" activeEnvironment="Default" name="WebService" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="47712218-39e6-4ae2-822b-43ecfda523d5" wsaVersion="NONE" name="WebServicesPortBinding" type="wsdl" bindingName="{http://ws.example.com/}WebServicesPortBinding" soapVersion="1_1" anonymous="optional" definition="file:/D:/Java/sim-card-activation-camunda/src/main/resources/wsdl/WebService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\D:\Java\sim-card-activation-camunda\src\main\resources\wsdl\WebService.wsdl"><con:part><con:url>file:\D:\Java\sim-card-activation-camunda\src\main\resources\wsdl\WebService.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://ws.example.com/" name="WebService" xmlns:tns="http://ws.example.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import namespace="http://ws.example.com/" schemaLocation="WebService.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="Request">
+    <wsdl:part name="Request" element="tns:Request"/>
+  </wsdl:message>
+  <wsdl:message name="Response">
+    <wsdl:part name="Response" element="tns:Response"/>
+  </wsdl:message>
+  <wsdl:portType name="WebService">
+    <wsdl:operation name="Request">
+      <wsdl:input name="Request" message="tns:Request"/>
+      <wsdl:output name="Response" message="tns:Response"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebServicesPortBinding" type="tns:WebService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Request">
+      <soap:operation soapAction="urn:request"/>
+      <wsdl:input name="Request">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebService">
+    <wsdl:port name="WebService" binding="tns:WebServicesPortBinding">
+      <soap:address location="http://localhost:8080/services/WebService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\D:\Java\sim-card-activation-camunda\src\main\resources\wsdl\WebService.xsd</con:url><con:content><![CDATA[<xsd:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://ws.example.com/" xmlns:tns="http://ws.example.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="Request" type="tns:Request"/>
+  <xsd:element name="Response" type="tns:Response"/>
+  <xsd:complexType name="Request">
+    <xsd:sequence>
+      <xsd:element name="RequestHeader" type="tns:RequestHeader"/>
+      <xsd:element name="RequestParameters">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Parameter" type="tns:Parameter" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Response">
+    <xsd:sequence>
+      <xsd:element name="ResponseHeader" type="tns:ResponseHeader"/>
+      <xsd:element name="ResponseParameters">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Parameter" type="tns:Parameter" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RequestHeader">
+    <xsd:all>
+      <xsd:element name="Type" type="tns:NonEmptyString"/>
+      <xsd:element name="Order" type="tns:NonEmptyString"/>
+      <xsd:element name="Priority" type="tns:OneToTen"/>
+      <xsd:element name="User" type="tns:NonEmptyString"/>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="ResponseHeader">
+    <xsd:all>
+      <xsd:element name="Type" type="tns:NonEmptyString"/>
+      <xsd:element name="Order" type="tns:NonEmptyString"/>
+      <xsd:element name="Priority" type="tns:OneToTen"/>
+      <xsd:element name="User" type="tns:NonEmptyString"/>
+      <xsd:element name="Status" type="tns:OneToTen"/>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="Parameter">
+    <xsd:attribute name="name" type="xsd:string" use="required"/>
+    <xsd:attribute name="value" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:simpleType name="NonEmptyString">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="OneToTen">
+    <xsd:restriction base="xsd:int">
+      <xsd:minInclusive value="1"/>
+      <xsd:maxInclusive value="10"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/services/WebService</con:endpoint></con:endpoints><con:operation id="7a450427-2e0f-4bc9-b9f4-b0f7e0039b4d" isOneWay="false" action="urn:request" name="Request" bindingOperationName="Request" type="Request-Response" outputName="Response" inputName="Request" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="4ce13404-d893-46e9-b033-655204e5203b" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/services/WebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.example.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <ws:Request>\r
+         <ws:RequestHeader>\r
+            <ws:Type>MOBILE</ws:Type>\r
+            <ws:Order>9155901180513467490</ws:Order>\r
+            <ws:Priority>5</ws:Priority>\r
+            <ws:User>BSS</ws:User>\r
+         </ws:RequestHeader>\r
+         <ws:RequestParameters/>\r
+      </ws:Request>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:request"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService id="fa949a5d-7035-40d0-aa99-459208d9c486" port="8081" path="/services/WebService" host="localhost" name="MockService 1" bindToHostOnly="false" docroot=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="Request" id="8063f851-f05e-49f0-9547-c17e97b535d4" interface="WebServicesPortBinding" operation="Request"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>def holder = new com.eviware.soapui.support.XmlHolder( mockRequest.requestContent )
+holder.namespaces['ws'] = 'http://ws.example.com/'
+requestContext.type = holder.getNodeValue("//ws:Type")
+requestContext.order = holder.getNodeValue("//ws:Order")
+requestContext.priority = holder.getNodeValue("//ws:Priority")
+requestContext.user = holder.getNodeValue("//ws:User")
+requestContext.status = 9</con:dispatchPath><con:response name="Response 1" id="be468a55-cb81-4cb6-b907-5b962a71f86c" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.example.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ws:Response>
+         <ws:ResponseHeader>
+            <ws:Type>${type}</ws:Type>
+            <ws:Order>${order}</ws:Order>
+            <ws:Priority>${priority}</ws:Priority>
+            <ws:User>${user}</ws:User>
+            <ws:Status>${status}</ws:Status>
+         </ws:ResponseHeader>
+         <ws:ResponseParameters/>
+      </ws:Response>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:request"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
