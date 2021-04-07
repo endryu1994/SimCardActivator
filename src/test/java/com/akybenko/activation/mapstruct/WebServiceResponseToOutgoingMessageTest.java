@@ -1,6 +1,6 @@
 package com.akybenko.activation.mapstruct;
 
-import static com.akybenko.activation.Constants.SIM_PRE_ACTIVATE;
+import static com.akybenko.activation.Constants.ACTIVATE;
 import static com.akybenko.activation.Constants.STATUS_CODE_WS_OK;
 import static com.akybenko.activation.mapstruct.TestData.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -31,10 +31,10 @@ public class WebServiceResponseToOutgoingMessageTest {
 
     @Test
     public void testGetOutgoingMessage_shouldReturnNotNull_whenStepIsNotNullAndResponseIsNull() {
-        OutgoingMessage actual = mapper.getOutgoingMessage(SIM_PRE_ACTIVATE, null);
+        OutgoingMessage actual = mapper.getOutgoingMessage(ACTIVATE, null);
         assertThat(actual, notNullValue());
         assertThat(actual, allOf(
-                hasProperty("step", equalTo(SIM_PRE_ACTIVATE)),
+                hasProperty("step", equalTo(ACTIVATE)),
                 hasProperty("order", nullValue()),
                 hasProperty("status", nullValue())));
     }
@@ -51,30 +51,30 @@ public class WebServiceResponseToOutgoingMessageTest {
 
     @Test
     public void testGetOutgoingMessage_shouldReturnNotNull_whenStepIsNotNullAndResponseIsNotNull() {
-        OutgoingMessage actual = mapper.getOutgoingMessage(SIM_PRE_ACTIVATE, EMPTY_RESPONSE);
+        OutgoingMessage actual = mapper.getOutgoingMessage(ACTIVATE, EMPTY_RESPONSE);
         assertThat(actual, notNullValue());
         assertThat(actual, allOf(
-                hasProperty("step", equalTo(SIM_PRE_ACTIVATE)),
+                hasProperty("step", equalTo(ACTIVATE)),
                 hasProperty("order", nullValue()),
                 hasProperty("status", nullValue())));
     }
 
     @Test
     public void testGetOutgoingMessage_shouldReturnNotNull_whenStepIsNotNullAndResponseHeaderIsEmpty() {
-        OutgoingMessage actual = mapper.getOutgoingMessage(SIM_PRE_ACTIVATE, getResponseWithEmptyResponseHeader());
+        OutgoingMessage actual = mapper.getOutgoingMessage(ACTIVATE, getResponseWithEmptyResponseHeader());
         assertThat(actual, notNullValue());
         assertThat(actual, allOf(
-                hasProperty("step", equalTo(SIM_PRE_ACTIVATE)),
+                hasProperty("step", equalTo(ACTIVATE)),
                 hasProperty("order", nullValue()),
                 hasProperty("status", nullValue())));
     }
 
     @Test
     public void testGetOutgoingMessage_shouldReturnNotNull_whenStepIsNotNullAndResponseHeaderIsNotEmpty() {
-        OutgoingMessage actual = mapper.getOutgoingMessage(SIM_PRE_ACTIVATE, getResponseWithNotEmptyResponseHeader());
+        OutgoingMessage actual = mapper.getOutgoingMessage(ACTIVATE, getResponseWithNotEmptyResponseHeader());
         assertThat(actual, notNullValue());
         assertThat(actual, allOf(
-                hasProperty("step", equalTo(SIM_PRE_ACTIVATE)),
+                hasProperty("step", equalTo(ACTIVATE)),
                 hasProperty("order", equalTo(ORDER_VALUE)),
                 hasProperty("status", equalTo(STATUS_CODE_WS_OK))));
     }
@@ -87,9 +87,9 @@ public class WebServiceResponseToOutgoingMessageTest {
 
     @Test
     public void testGetOutgoingMessage_shouldReturnNotNull_whenStepIsNotNullAndOrderIsNullAndStatusIsNull() {
-        OutgoingMessage actual = mapper.getOutgoingMessage(SIM_PRE_ACTIVATE, null, null);
+        OutgoingMessage actual = mapper.getOutgoingMessage(ACTIVATE, null, null);
         assertThat(actual, allOf(
-                hasProperty("step", equalTo(SIM_PRE_ACTIVATE)),
+                hasProperty("step", equalTo(ACTIVATE)),
                 hasProperty("order", nullValue()),
                 hasProperty("status", nullValue())));
     }
@@ -114,18 +114,18 @@ public class WebServiceResponseToOutgoingMessageTest {
 
     @Test
     public void testGetOutgoingMessage_shouldReturnNotNull_whenStepIsNotNullAndOrderIsNotNullAndStatusIsNull() {
-        OutgoingMessage actual = mapper.getOutgoingMessage(SIM_PRE_ACTIVATE, ORDER_VALUE, null);
+        OutgoingMessage actual = mapper.getOutgoingMessage(ACTIVATE, ORDER_VALUE, null);
         assertThat(actual, allOf(
-                hasProperty("step", equalTo(SIM_PRE_ACTIVATE)),
+                hasProperty("step", equalTo(ACTIVATE)),
                 hasProperty("order", equalTo(ORDER_VALUE)),
                 hasProperty("status", nullValue())));
     }
 
     @Test
     public void testGetOutgoingMessage_shouldReturnNotNull_whenStepIsNotNullAndOrderIsNullAndStatusIsNotNull() {
-        OutgoingMessage actual = mapper.getOutgoingMessage(SIM_PRE_ACTIVATE, null, STATUS_CODE_WS_OK);
+        OutgoingMessage actual = mapper.getOutgoingMessage(ACTIVATE, null, STATUS_CODE_WS_OK);
         assertThat(actual, allOf(
-                hasProperty("step", equalTo(SIM_PRE_ACTIVATE)),
+                hasProperty("step", equalTo(ACTIVATE)),
                 hasProperty("order", nullValue()),
                 hasProperty("status", equalTo(STATUS_CODE_WS_OK))));
     }
@@ -141,9 +141,9 @@ public class WebServiceResponseToOutgoingMessageTest {
 
     @Test
     public void testGetOutgoingMessage_shouldReturnNotNull_whenStepIsNotNullAndOrderIsNotNullAndStatusIsNotNull() {
-        OutgoingMessage actual = mapper.getOutgoingMessage(SIM_PRE_ACTIVATE, ORDER_VALUE, STATUS_CODE_WS_OK);
+        OutgoingMessage actual = mapper.getOutgoingMessage(ACTIVATE, ORDER_VALUE, STATUS_CODE_WS_OK);
         assertThat(actual, allOf(
-                hasProperty("step", equalTo(SIM_PRE_ACTIVATE)),
+                hasProperty("step", equalTo(ACTIVATE)),
                 hasProperty("order", equalTo(ORDER_VALUE)),
                 hasProperty("status", equalTo(STATUS_CODE_WS_OK))));
     }

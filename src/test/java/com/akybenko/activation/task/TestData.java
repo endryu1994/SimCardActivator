@@ -5,7 +5,7 @@ import static com.akybenko.activation.Constants.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.akybenko.activation.model.SimActivateRequest;
+import com.akybenko.activation.model.ActivateRequest;
 import com.akybenko.activation.model.ws.server.Response;
 import com.akybenko.activation.model.ws.server.ResponseHeader;
 
@@ -22,7 +22,7 @@ class TestData {
     private static final String GROUP_VALUE = String.format("%s%s", "group_", ACCOUNT_ID_VALUE);
     private static final String ENCRYPTION_KEY_VALUE = "B3EC1872947572E18A9054B78EF908C0";
     private static final String KDBID_VALUE = "10";
-    private static final String STEP_VALUE = "simPreActivate";
+    private static final String STEP_VALUE = "activate";
     private static final String RFS_SIM_VALUE = "SIM";
     private static final String RFS_SPS_VALUE = "SPS";
     private static final String TRANSACTION_TYPE_PRE_ACTIVATE_VALUE = "PREACTIVATE";
@@ -34,16 +34,16 @@ class TestData {
         return response;
     }
 
-    protected static SimActivateRequest getSimActivateRequest() {
-        return new SimActivateRequest(getData());
+    protected static ActivateRequest getActivateRequest() {
+        return new ActivateRequest(getData());
     }
 
-    protected static SimActivateRequest getSimActivateRequestWithEmptyData() {
-        return new SimActivateRequest(getEmptyData());
+    protected static ActivateRequest getActivateRequestWithEmptyData() {
+        return new ActivateRequest(getEmptyData());
     }
 
-    protected static SimActivateRequest getSimActivateRequestWithNullData() {
-        return new SimActivateRequest(null);
+    protected static ActivateRequest getActivateRequestWithNullData() {
+        return new ActivateRequest(null);
     }
 
     private static ResponseHeader getResponseHeader(Integer status) {
@@ -63,8 +63,8 @@ class TestData {
     private static Map<String, Map<String, String>> getData() {
         Map<String, Map<String, String>> data = new HashMap<>();
         data.put(HEADER, getHeaderData());
-        data.put(SIM_PRE_ACTIVATE, getSimPreActivateData());
-        data.put(SPS_CREATE_SIM, getSpsCreateSimData());
+        data.put(ACTIVATE, getActivateData());
+        data.put(CREATE, getCreateData());
         return data;
     }
 
@@ -79,7 +79,7 @@ class TestData {
         return map;
     }
 
-    private static Map<String, String> getSimPreActivateData() {
+    private static Map<String, String> getActivateData() {
         Map<String, String> map = new HashMap<>();
         map.put(IMSI, IMSI_VALUE);
         map.put(ALGORITHM_ID, ALGORITHM_ID_VALUE);
@@ -91,7 +91,7 @@ class TestData {
         return map;
     }
 
-    private static Map<String, String> getSpsCreateSimData() {
+    private static Map<String, String> getCreateData() {
         Map<String, String> map = new HashMap<>();
         map.put(IMSI, IMSI_VALUE);
         map.put(ACCOUNT_ID, ACCOUNT_ID_VALUE);

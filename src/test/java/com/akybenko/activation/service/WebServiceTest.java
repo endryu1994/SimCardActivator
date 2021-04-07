@@ -37,14 +37,14 @@ public class WebServiceTest {
     }
 
     @Test
-    public void testGetSimPreActivateResponse_shouldReturnResponse_whenSimActivateRequestIsNotNull() {
-        Response actual = service.getSimPreActivateResponse(getSimActivateRequest());
+    public void testGetActivateResponse_shouldReturnResponse_whenActivateRequestIsNotNull() {
+        Response actual = service.getActivateResponse(getActivateRequest());
         check(actual);
     }
 
     @Test
-    public void testGetSpsCreateSimResponse_shouldReturnResponse_whenSimActivateRequestIsNotNull() {
-        Response actual = service.getSpsCreateSimResponse(getSimActivateRequest());
+    public void testGetCreateResponse_shouldReturnResponse_whenActivateRequestIsNotNull() {
+        Response actual = service.getCreateResponse(getActivateRequest());
         check(actual);
     }
 

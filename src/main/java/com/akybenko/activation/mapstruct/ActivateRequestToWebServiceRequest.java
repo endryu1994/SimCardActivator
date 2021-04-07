@@ -10,9 +10,9 @@ import com.akybenko.activation.model.ws.server.Request;
 import com.akybenko.activation.model.ws.server.RequestHeader;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, unmappedSourcePolicy = ReportingPolicy.IGNORE)
-public interface SimActivateRequestToWebServiceRequest {
+public interface ActivateRequestToWebServiceRequest {
 
-    SimActivateRequestToWebServiceRequest INSTANCE = Mappers.getMapper(SimActivateRequestToWebServiceRequest.class);
+    ActivateRequestToWebServiceRequest INSTANCE = Mappers.getMapper(ActivateRequestToWebServiceRequest.class);
 
     RequestHeader getRequestHeader(Header header);
 

@@ -1,14 +1,14 @@
 package com.akybenko.activation.service.impl;
 
 import static com.akybenko.activation.Constants.*;
-import static com.akybenko.activation.mapstruct.SimActivateRequestToWebServiceRequest.INSTANCE;
+import static com.akybenko.activation.mapstruct.ActivateRequestToWebServiceRequest.INSTANCE;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
 import com.akybenko.activation.ApplicationProperties;
-import com.akybenko.activation.model.SimActivateRequest;
+import com.akybenko.activation.model.ActivateRequest;
 import com.akybenko.activation.model.ws.server.Parameter;
 import com.akybenko.activation.model.ws.server.Request;
 import com.akybenko.activation.model.ws.server.RequestHeader;
@@ -28,32 +28,32 @@ public class WebServiceImpl implements WebService {
     private final ApplicationProperties properties;
 
     @Override
-    public Response getSimPreActivateResponse(SimActivateRequest request) {
+    public Response getActivateResponse(ActivateRequest request) {
         return getResponse(
                 request,
-                INSTANCE.getParameter(IMSI, String.valueOf(request.getSimPreActivate().getImsi())),
-                INSTANCE.getParameter(ALGORITHM_ID, String.valueOf(request.getSimPreActivate().getAlgorithmId())),
-                INSTANCE.getParameter(MSISDN, String.valueOf(request.getSimPreActivate().getMsisdn())),
-                INSTANCE.getParameter(TRANSACTION_TYPE, request.getSimPreActivate().getTransactionType()),
-                INSTANCE.getParameter(RFS, request.getSimPreActivate().getRfs()),
-                INSTANCE.getParameter(ENCRYPTION_KEY, request.getSimPreActivate().getEncryptionKey()),
-                INSTANCE.getParameter(KDBID, String.valueOf(request.getSimPreActivate().getKdbid())));
+                INSTANCE.getParameter(IMSI, String.valueOf(request.getActivate().getImsi())),
+                INSTANCE.getParameter(ALGORITHM_ID, String.valueOf(request.getActivate().getAlgorithmId())),
+                INSTANCE.getParameter(MSISDN, String.valueOf(request.getActivate().getMsisdn())),
+                INSTANCE.getParameter(TRANSACTION_TYPE, request.getActivate().getTransactionType()),
+                INSTANCE.getParameter(RFS, request.getActivate().getRfs()),
+                INSTANCE.getParameter(ENCRYPTION_KEY, request.getActivate().getEncryptionKey()),
+                INSTANCE.getParameter(KDBID, String.valueOf(request.getActivate().getKdbid())));
     }
 
     @Override
-    public Response getSpsCreateSimResponse(SimActivateRequest request) {
+    public Response getCreateResponse(ActivateRequest request) {
         return getResponse(
                 request,
-                INSTANCE.getParameter(IMSI, String.valueOf(request.getSpsCreateSim().getImsi())),
-                INSTANCE.getParameter(ACCOUNT_ID, String.valueOf(request.getSpsCreateSim().getAccountId())),
-                INSTANCE.getParameter(GROUP, request.getSpsCreateSim().getGroup()),
-                INSTANCE.getParameter(RFS, request.getSpsCreateSim().getRfs()),
-                INSTANCE.getParameter(MSISDN, String.valueOf(request.getSpsCreateSim().getMsisdn())),
-                INSTANCE.getParameter(PHONE_NUMBER, String.valueOf(request.getSpsCreateSim().getPhoneNumber())),
-                INSTANCE.getParameter(TRANSACTION_TYPE, request.getSpsCreateSim().getTransactionType()));
+                INSTANCE.getParameter(IMSI, String.valueOf(request.getCreate().getImsi())),
+                INSTANCE.getParameter(ACCOUNT_ID, String.valueOf(request.getCreate().getAccountId())),
+                INSTANCE.getParameter(GROUP, request.getCreate().getGroup()),
+                INSTANCE.getParameter(RFS, request.getCreate().getRfs()),
+                INSTANCE.getParameter(MSISDN, String.valueOf(request.getCreate().getMsisdn())),
+                INSTANCE.getParameter(PHONE_NUMBER, String.valueOf(request.getCreate().getPhoneNumber())),
+                INSTANCE.getParameter(TRANSACTION_TYPE, request.getCreate().getTransactionType()));
     }
 
-    private Response getResponse(SimActivateRequest request, Parameter... parameters) {
+    private Response getResponse(ActivateRequest request, Parameter... parameters) {
         log.debug("Incoming request: {}", request);
         RequestHeader requestHeader = INSTANCE.getRequestHeader(request.getHeader());
         Request.RequestParameters requestParameters = new Request.RequestParameters();

@@ -19,7 +19,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
-import com.akybenko.activation.model.SimActivateRequest;
+import com.akybenko.activation.model.ActivateRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.Channel;
@@ -41,7 +41,7 @@ public class RabbitMqListener {
             String data = new String(message.getBody(), Charset.defaultCharset());
             log.debug("Received message: {}", data);
             Map<String, Map<String, String>> map = getData(data);
-            SimActivateRequest request = new SimActivateRequest(map);
+            ActivateRequest request = new ActivateRequest(map);
             log.debug("Request: {}", request);
             String order = request.getHeader().getOrder();
             if (checkIfActiveProcessExists(order)) {
@@ -60,7 +60,7 @@ public class RabbitMqListener {
         return objectMapper.readValue(data, Map.class);
     }
 
-    private Map<String, Object> getVariables(SimActivateRequest request) {
+    private Map<String, Object> getVariables(ActivateRequest request) {
         ObjectValue requestValue = Variables.objectValue(request)
                 .serializationDataFormat(Variables.SerializationDataFormats.JAVA)
                 .create();

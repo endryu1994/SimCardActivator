@@ -16,13 +16,13 @@ import com.akybenko.activation.model.ws.server.Request;
 import com.akybenko.activation.model.ws.server.RequestHeader;
 
 @RunWith(SpringRunner.class)
-public class SimActivateRequestToWebServiceRequestTest {
+public class ActivateRequestToWebServiceRequestTest {
 
-    private SimActivateRequestToWebServiceRequest mapper;
+    private ActivateRequestToWebServiceRequest mapper;
 
     @Before
     public void setUp() {
-        mapper = SimActivateRequestToWebServiceRequest.INSTANCE;
+        mapper = ActivateRequestToWebServiceRequest.INSTANCE;
     }
 
     @Test

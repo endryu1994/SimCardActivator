@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1pzpk3d" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
-    <bpmn:process id="SimCardActivator" isExecutable="true">
+    <bpmn:process id="SimCardActivator" name="SimCardActivator" isExecutable="true">
         <bpmn:startEvent id="StartEvent_GetOrder" name="Get order">
             <bpmn:outgoing>Flow_1mikpvd</bpmn:outgoing>
         </bpmn:startEvent>
@@ -12,24 +12,24 @@
             <bpmn:outgoing>Flow_0uvr276</bpmn:outgoing>
         </bpmn:exclusiveGateway>
         <bpmn:sequenceFlow id="Flow_1mikpvd" sourceRef="StartEvent_GetOrder" targetRef="Gateway_CheckStep" />
-        <bpmn:sequenceFlow id="Flow_1m2aze3" name="simPreActivate" sourceRef="Gateway_CheckStep" targetRef="ServiceTask_SimPreActivate">
-            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{step == 'simPreActivate'}</bpmn:conditionExpression>
+        <bpmn:sequenceFlow id="Flow_1m2aze3" name="activate" sourceRef="Gateway_CheckStep" targetRef="ServiceTask_Activate">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{step == 'activate'}</bpmn:conditionExpression>
         </bpmn:sequenceFlow>
-        <bpmn:serviceTask id="ServiceTask_SimPreActivate" name="SimPreActivate" camunda:asyncBefore="true" camunda:delegateExpression="#{simPreActivateTask}">
+        <bpmn:serviceTask id="ServiceTask_Activate" name="Activate" camunda:asyncBefore="true" camunda:delegateExpression="#{activateTask}">
             <bpmn:incoming>Flow_1m2aze3</bpmn:incoming>
             <bpmn:outgoing>Flow_0mjbiez</bpmn:outgoing>
         </bpmn:serviceTask>
-        <bpmn:serviceTask id="ServiceTask_SpsCreateSim" name="SpsCreateSim" camunda:asyncBefore="true" camunda:delegateExpression="#{spsCreateSimTask}">
+        <bpmn:serviceTask id="ServiceTask_Create" name="Create" camunda:asyncBefore="true" camunda:delegateExpression="#{createTask}">
             <bpmn:incoming>Flow_0dkccrx</bpmn:incoming>
             <bpmn:outgoing>Flow_0a402m3</bpmn:outgoing>
         </bpmn:serviceTask>
-        <bpmn:sequenceFlow id="Flow_0dkccrx" name="spsCreateSim" sourceRef="Gateway_CheckStep" targetRef="ServiceTask_SpsCreateSim">
-            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{step == 'spsCreateSim'}</bpmn:conditionExpression>
+        <bpmn:sequenceFlow id="Flow_0dkccrx" name="create" sourceRef="Gateway_CheckStep" targetRef="ServiceTask_Create">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{step == 'create'}</bpmn:conditionExpression>
         </bpmn:sequenceFlow>
         <bpmn:endEvent id="EndEvent_SimCardActivated" name="SIM-card is activated">
             <bpmn:incoming>Flow_0v469fz</bpmn:incoming>
         </bpmn:endEvent>
-        <bpmn:sequenceFlow id="Flow_0uvr276" name="notification" sourceRef="Gateway_CheckStep" targetRef="ReceiveTask_WaitForNotification">
+        <bpmn:sequenceFlow id="Flow_0uvr276" name="notification" sourceRef="Gateway_CheckStep" targetRef="ReceiveTask_Notification">
             <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{step == 'notification'}</bpmn:conditionExpression>
         </bpmn:sequenceFlow>
         <bpmn:exclusiveGateway id="Gateway_0cdm22m">
@@ -41,19 +41,19 @@
         <bpmn:endEvent id="EndEvent_SimCardIsNotActivated" name="SIM-card is not activated">
             <bpmn:incoming>Flow_02on242</bpmn:incoming>
         </bpmn:endEvent>
-        <bpmn:sequenceFlow id="Flow_0mjbiez" sourceRef="ServiceTask_SimPreActivate" targetRef="Gateway_0cdm22m" />
-        <bpmn:sequenceFlow id="Flow_0a402m3" sourceRef="ServiceTask_SpsCreateSim" targetRef="Gateway_0cdm22m" />
+        <bpmn:sequenceFlow id="Flow_0mjbiez" sourceRef="ServiceTask_Activate" targetRef="Gateway_0cdm22m" />
+        <bpmn:sequenceFlow id="Flow_0a402m3" sourceRef="ServiceTask_Create" targetRef="Gateway_0cdm22m" />
         <bpmn:sequenceFlow id="Flow_02on242" name="True" sourceRef="Gateway_0cdm22m" targetRef="EndEvent_SimCardIsNotActivated">
             <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{error == true}</bpmn:conditionExpression>
         </bpmn:sequenceFlow>
         <bpmn:sequenceFlow id="Flow_1kmgevh" name="False&#10;" sourceRef="Gateway_0cdm22m" targetRef="Gateway_CheckStep">
             <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{error == false}</bpmn:conditionExpression>
         </bpmn:sequenceFlow>
-        <bpmn:receiveTask id="ReceiveTask_WaitForNotification" name="Wait for notification" messageRef="Message_1ermzjz">
+        <bpmn:receiveTask id="ReceiveTask_Notification" name="Notification" messageRef="Message_1ermzjz">
             <bpmn:incoming>Flow_0uvr276</bpmn:incoming>
             <bpmn:outgoing>Flow_0v469fz</bpmn:outgoing>
         </bpmn:receiveTask>
-        <bpmn:sequenceFlow id="Flow_0v469fz" sourceRef="ReceiveTask_WaitForNotification" targetRef="EndEvent_SimCardActivated" />
+        <bpmn:sequenceFlow id="Flow_0v469fz" sourceRef="ReceiveTask_Notification" targetRef="EndEvent_SimCardActivated" />
     </bpmn:process>
     <bpmn:message id="Message_1ermzjz" name="notification" />
     <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -104,14 +104,14 @@
                 <di:waypoint x="350" y="270" />
                 <di:waypoint x="470" y="270" />
                 <bpmndi:BPMNLabel>
-                    <dc:Bounds x="383" y="252" width="70" height="14" />
+                    <dc:Bounds x="403" y="252" width="31" height="14" />
                 </bpmndi:BPMNLabel>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge id="Flow_1m2aze3_di" bpmnElement="Flow_1m2aze3">
                 <di:waypoint x="375" y="167" />
                 <di:waypoint x="470" y="167" />
                 <bpmndi:BPMNLabel>
-                    <dc:Bounds x="386" y="149" width="74" height="14" />
+                    <dc:Bounds x="400" y="149" width="38" height="14" />
                 </bpmndi:BPMNLabel>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge id="Flow_1mikpvd_di" bpmnElement="Flow_1mikpvd">
@@ -130,10 +130,10 @@
                     <dc:Bounds x="322" y="123" width="56" height="14" />
                 </bpmndi:BPMNLabel>
             </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape id="Activity_1wlpgx0_di" bpmnElement="ServiceTask_SimPreActivate">
+            <bpmndi:BPMNShape id="Activity_1wlpgx0_di" bpmnElement="ServiceTask_Activate">
                 <dc:Bounds x="470" y="127" width="100" height="80" />
             </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape id="Activity_1w90sdd_di" bpmnElement="ServiceTask_SpsCreateSim">
+            <bpmndi:BPMNShape id="Activity_1w90sdd_di" bpmnElement="ServiceTask_Create">
                 <dc:Bounds x="470" y="230" width="100" height="80" />
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape id="Event_14417dy_di" bpmnElement="EndEvent_SimCardActivated">
@@ -151,7 +151,7 @@
                     <dc:Bounds x="764" y="245" width="75" height="27" />
                 </bpmndi:BPMNLabel>
             </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape id="Activity_0rbe8xo_di" bpmnElement="ReceiveTask_WaitForNotification">
+            <bpmndi:BPMNShape id="Activity_0rbe8xo_di" bpmnElement="ReceiveTask_Notification">
                 <dc:Bounds x="470" y="330" width="100" height="80" />
             </bpmndi:BPMNShape>
         </bpmndi:BPMNPlane>

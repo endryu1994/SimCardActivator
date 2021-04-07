@@ -25,8 +25,8 @@ public final class Constants {
     public static final String HEADER = "header";
 
     // Step
-    public static final String SIM_PRE_ACTIVATE = "simPreActivate";
-    public static final String SPS_CREATE_SIM = "spsCreateSim";
+    public static final String ACTIVATE = "activate";
+    public static final String CREATE = "create";
     public static final String NOTIFICATION = "notification";
 
     // Camunda
